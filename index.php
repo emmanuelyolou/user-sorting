@@ -10,7 +10,7 @@ class User{
         $this->prenom = $prenom;
     }
     
-    public function orderBy($userList, $order, $property){
+    public function orderBy(array $userList, $order, $property){
         if($property != "nom" && $property != "prenom"){
             return;
         }
@@ -45,11 +45,6 @@ class User{
         return $userList;
     }
 
-    static public function exchangeUser(&$user1, &$user2){
-        $temp = clone $user1;
-        $user1 = clone $user2;
-        $user2 = clone $temp;
-    }
     static public function display($userList){
         for ($i=0; $i < sizeof($userList); $i++) { 
             echo "{$userList[$i]->nom} <br>";
