@@ -48,16 +48,16 @@ class User{
         return $userList;
     }
 
-    static public function exchangeUser($user1, $user2){
-        $temp = clone $user1;
-        $user1 = clone $user2;
-        $temp = clone $user2;
-    }
-    static public function display($userList){
-        for ($i=0; $i < sizeof($userList); $i++) { 
-            echo "{$userList[$i]->nom} <br>";
-        }
-    }
+    // static public function exchangeUser($user1, $user2){
+    //     $temp = clone $user1;
+    //     $user1 = clone $user2;
+    //     $temp = clone $user2;
+    // }
+    // static public function display($userList){
+    //     for ($i=0; $i < sizeof($userList); $i++) { 
+    //         echo "{$userList[$i]->nom} <br>";
+    //     }
+    // }
 
 }
 function dd($data){
@@ -72,8 +72,8 @@ $c = new User("Zunon", "Marc");
 $d = new User("Yao" ,"Aaron");
 $e = new User("Sosthene", "francky");
 $userList = [$a, $b, $c, $d, $e];
-$x = new User('e', 'h');
-$sortedUserList = $x->orderBy($userList, 'desc', "prenom");
+$x = new User();
+$sortedUserList = $x->orderBy($userList, 'asc', "prenom");
 
 dd($sortedUserList);
 
