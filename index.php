@@ -1,4 +1,5 @@
 <?php
+require_once('Swapper.php');
 
 class User{
     public $nom;
@@ -25,9 +26,7 @@ class User{
         for ($i=0; $i < sizeof($userList) - 1; $i++) { 
             for ($j = $i + 1; $j < sizeof($userList); $j++ ) { 
                 if( strcasecmp($userList[$i]->$property, $userList[$j]->$property) > 0 ){
-                    $temp = clone $userList[$i];
-                    $userList[$i] =  clone $userList[$j];
-                    $userList[$j] = clone $temp;
+                    Swapper::swap($userList[$i], $userList[$j]);
                 }
             }
         }
@@ -39,31 +38,29 @@ class User{
         for ($i=0; $i < sizeof($userList) - 1; $i++) { 
             for ($j = $i + 1; $j < sizeof($userList); $j++ ) { 
                 if( strcasecmp($userList[$i]->$property, $userList[$j]->$property) < 0 ){
-                    $temp = clone $userList[$i];
-                    $userList[$i] =  clone $userList[$j];
-                    $userList[$j] = clone $temp;
+                    Swapper::swap($userList[$i], $userList[$j]);
                 }
             }
         }
         return $userList;
     }
 
-    // static public function exchangeUser($user1, $user2){
-    //     $temp = clone $user1;
-    //     $user1 = clone $user2;
-    //     $temp = clone $user2;
-    // }
-    // static public function display($userList){
-    //     for ($i=0; $i < sizeof($userList); $i++) { 
-    //         echo "{$userList[$i]->nom} <br>";
-    //     }
-    // }
+    static public function exchangeUser(&$user1, &$user2){
+        $temp = clone $user1;
+        $user1 = clone $user2;
+        $user2 = clone $temp;
+    }
+    static public function display($userList){
+        for ($i=0; $i < sizeof($userList); $i++) { 
+            echo "{$userList[$i]->nom} <br>";
+        }
+    }
 
 }
 function dd($data){
     highlight_string("<?php\n " . var_export($data, true) . "?>");
     echo '<script>document.getElementsByTagName("code")[0].getElementsByTagName("span")[1].remove() ;document.getElementsByTagName("code")[0].getElementsByTagName("span")[document.getElementsByTagName("code")[0].getElementsByTagName("span").length - 1].remove() ; </script>';
-    die();
+    // die();
   }
 
 $a = new User("Koffi", "ada");
@@ -73,7 +70,9 @@ $d = new User("Yao" ,"Aaron");
 $e = new User("Sosthene", "francky");
 $userList = [$a, $b, $c, $d, $e];
 $x = new User();
-$sortedUserList = $x->orderBy($userList, 'asc', "prenom");
+
+
+$sortedUserList = $x->orderBy($userList, 'desc', "nom");
 
 dd($sortedUserList);
 
