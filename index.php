@@ -99,8 +99,8 @@ $f = new User("Coulibaly", "Jasmine");
 $b = new User("Bolloré", "ada");
 $g = new User("Traoré", "ada");
 $c = new User("Zunon", "Marc");
+$e = new User("Zunon", "Didier");
 $d = new User("Yao" ,"Aaron");
-$e = new User("Sosthene", "francky");
 $h = new User("Coulibaly", "Cécile");
 
 $userList = [$a, $b, $c, $d, $e, $f, $g, $h];
