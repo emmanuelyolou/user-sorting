@@ -10,35 +10,71 @@ class User{
         $this->prenom = $prenom;
     }
     
-    public function orderBy(array $userList, $order, $property){
-        if($property != "nom" && $property != "prenom"){
-            return;
+    public function orderBy(array $userList, array $propertyList, String $order){
+        $allowedProperties = [ "nom", "prenom"];
+        for ($i=0; $i < sizeof($propertyList); $i++) { 
+            if(!in_array($propertyList[$i], $allowedProperties)){
+                //TODO: handle error
+                return;
+            }
         }
-        if($order == 'desc'){
-            return User::sortDesc($userList, $property);
-        }
-        else{
-            return User::_sortAsc($userList, $property);
-        }
-    }
-
-    static private function _sortAsc($userList, $property){
+        
         for ($i=0; $i < sizeof($userList) - 1; $i++) { 
             for ($j = $i + 1; $j < sizeof($userList); $j++ ) { 
-                if( strcasecmp($userList[$i]->$property, $userList[$j]->$property) > 0 ){
-                    Swapper::swap($userList[$i], $userList[$j]);
+                $isComparisonFinished = false;
+                $k = 0;
+                //We check if the properties are in descending order and store the result in a bool variable
+                while(!$isComparisonFinished && $k < sizeof($propertyList)){
+                    $property = $propertyList[$k];
+                    $arePropsInAscOrder = strcasecmp($userList[$i]->$property, $userList[$j]->$property) < 0;
+                    $arePropsEqual = strcasecmp($userList[$i]->$property, $userList[$j]->$property) == 0;
+
+                    if($arePropsEqual) {
+                        $k++;
+                    }
+
+                    elseif($order == "desc") {
+                        if($arePropsInAscOrder){
+                            Swapper::swap($userList[$i], $userList[$j]);
+                            $isComparisonFinished = true;
+                        }
+                        else{
+                            $isComparisonFinished = true;
+                        }
+                    }
+                    else{
+                        if(!$arePropsInAscOrder){
+                            Swapper::swap($userList[$i], $userList[$j]);
+                            $isComparisonFinished = true;
+                        }
+                        else{
+                            $isComparisonFinished = true;
+                        }
+                    }
                 }
             }
         }
         return $userList;
     }
 
-
-    static private function sortDesc($userList, $property){
+    static private function sortDesc($userList, $propertyList){
         for ($i=0; $i < sizeof($userList) - 1; $i++) { 
             for ($j = $i + 1; $j < sizeof($userList); $j++ ) { 
-                if( strcasecmp($userList[$i]->$property, $userList[$j]->$property) < 0 ){
-                    Swapper::swap($userList[$i], $userList[$j]);
+                $isComparisonFinished = false;
+                $k = 0;
+                while(!$isComparisonFinished && $k < sizeof($propertyList)){
+                    $property = $propertyList[$k];
+
+                    if( strcasecmp($userList[$i]->$property, $userList[$j]->$property) < 0 ){
+                        Swapper::swap($userList[$i], $userList[$j]);
+                        $isComparisonFinished = true;
+                    }
+                    elseif( strcasecmp($userList[$i]->$property, $userList[$j]->$property) == 0){
+                        $k++;
+                    }
+                    else{
+                        $isComparisonFinished = true;
+                    }
                 }
             }
         }
@@ -59,16 +95,21 @@ function dd($data){
   }
 
 $a = new User("Koffi", "ada");
-$b = new User("Coulibaly", "Jean pierre");
+$f = new User("Coulibaly", "Jasmine");
+$b = new User("Bolloré", "ada");
+$g = new User("Traoré", "ada");
 $c = new User("Zunon", "Marc");
 $d = new User("Yao" ,"Aaron");
 $e = new User("Sosthene", "francky");
-$userList = [$a, $b, $c, $d, $e];
+$h = new User("Coulibaly", "Cécile");
+
+$userList = [$a, $b, $c, $d, $e, $f, $g, $h];
 $x = new User();
 
 
-$sortedUserList = $x->orderBy($userList, 'desc', "nom");
+$sortedUserList = $x->orderBy($userList, [ "nom", "prenom"], 'asc');
 
 dd($sortedUserList);
+// var_dump($sortedUserList);
 
 ?>
