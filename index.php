@@ -32,23 +32,17 @@ class User{
                     if($arePropsEqual) {
                         $k++;
                     }
-
-                    elseif($order == "desc") {
-                        if($arePropsInAscOrder){
-                            Swapper::swap($userList[$i], $userList[$j]);
-                            $isComparisonFinished = true;
-                        }
-                        else{
-                            $isComparisonFinished = true;
-                        }
-                    }
                     else{
-                        if(!$arePropsInAscOrder){
+                        $isComparisonFinished = true;
+                        if($order == "desc" && $arePropsInAscOrder) {
                             Swapper::swap($userList[$i], $userList[$j]);
-                            $isComparisonFinished = true;
                         }
-                        else{
-                            $isComparisonFinished = true;
+                        elseif($order == "asc" && !$arePropsInAscOrder){
+                            Swapper::swap($userList[$i], $userList[$j]);
+                        }
+                        elseif(!in_array($order, ["asc", "desc"]) && !$arePropsInAscOrder){
+                            //If the specified order is neither 'asc' nor 'desc', act like it's 'asc' by default.
+                            Swapper::swap($userList[$i], $userList[$j]);
                         }
                     }
                 }
