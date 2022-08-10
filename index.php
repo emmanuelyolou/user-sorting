@@ -23,7 +23,7 @@ $userList = [$a, $b, $c, $d, $e, $f, $g, $h];
 $x = new User();
 
 
-$sortedUserList = $x->orderBy($userList, [ "prenom", "nom"], 'desc');
+$sortedUserList = $x->orderBy($userList, 'desc', [ "prenom", "nom"]);
 
 $stringPropertiesUserList = [];
 $userPropertyList = [];

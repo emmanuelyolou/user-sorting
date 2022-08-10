@@ -1,5 +1,29 @@
 <?php
 class StringHelper{
+    public function main(
+        array $listToProcess, 
+        String $searchedString, 
+        array $orderBy,
+        String $orderDirection = "asc"
+    ){
+        $helper = new User();
+        $filteredList = StringHelper::filterObjectList($searchedString, $listToProcess);
+        $filteredList = $helper->orderBy($filteredList, 'asc');
+    }
+
+    //listToFilter must be an array of strings
+    static public function filterObjectList(String $searchedString, array $objectListToFilter){
+        $filteredList = []; 
+        for ($i=0; $i < sizeof($objectListToFilter); $i++) { 
+            $propertyListToString = StringHelper::propertyListToString($objectListToFilter[$i]);
+            //If the string combining the object properties match the searchedString, it's added to the result
+            if(StringHelper::AllWordsExistIn($searchedString, $propertyListToString)){
+                $filteredList[] = $objectListToFilter[$i];
+            }
+        }
+        return $filteredList;
+    }
+
     static public function stringStartsWith(String $needle, String $haystack){
     return substr($haystack, 0, strlen($needle));
     }  
@@ -75,18 +99,6 @@ class StringHelper{
         return true;
     }
 
-    //listToFilter must be an array of strings
-    static public function filterObjectList(String $searchedString, array $objectListToFilter){
-        $filteredList = []; 
-        for ($i=0; $i < sizeof($objectListToFilter); $i++) { 
-            $propertyListToString = StringHelper::propertyListToString($objectListToFilter[$i]);
-            //If the string combining the object properties match the searchedString, it's added to the result
-            if(StringHelper::AllWordsExistIn($searchedString, $propertyListToString)){
-                $filteredList[] = $objectListToFilter[$i];
-            }
-        }
-        return $filteredList;
-    }
 
     //listToFilter must be an array of strings
     static public function filterStringList(String $searchedString, array $listToFilter){

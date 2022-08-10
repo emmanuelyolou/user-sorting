@@ -9,12 +9,17 @@ class User{
         $this->prenom = $prenom;
     }
     
-    public function orderBy(array $userList, array $propertyList, String $order){
-        $allowedProperties = [ "nom", "prenom"];
-        for ($i=0; $i < sizeof($propertyList); $i++) { 
-            if(!in_array($propertyList[$i], $allowedProperties)){
-                //TODO: handle error
-                return;
+    public function orderBy(array $userList, String $order = 'asc', array $propertyList = []){
+        if(sizeof($userList) == 0){
+            return;
+        }
+        $className = get_class($userList[0]);
+        $classPropertyList = array_keys(get_class_vars($className));
+        
+        for ($i=0; $i < sizeof($propertyList); $i++) {
+            //First, we check if the properties in $propertyList exist in the class
+            if( !in_array( $propertyList[$i], $classPropertyList ) ){
+                throw new Exception("Property $propertyList[$i] does not exist." );
             }
         }
         
