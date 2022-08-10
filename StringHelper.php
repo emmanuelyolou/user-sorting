@@ -1,34 +1,6 @@
 <?php
 class StringHelper{
-    public function main(
-        array $listToProcess, 
-        String $searchedString, 
-        array $orderBy,
-        String $orderDirection = "asc"
-    ){
-        $helper = new User();
-        $filteredList = StringHelper::filterObjectList($searchedString, $listToProcess);
-        $filteredList = $helper->orderBy($filteredList, 'asc');
-    }
-
-    //listToFilter must be an array of strings
-    static public function filterObjectList(String $searchedString, array $objectListToFilter){
-        $filteredList = []; 
-        for ($i=0; $i < sizeof($objectListToFilter); $i++) { 
-            $propertyListToString = StringHelper::propertyListToString($objectListToFilter[$i]);
-            //If the string combining the object properties match the searchedString, it's added to the result
-            if(StringHelper::AllWordsExistIn($searchedString, $propertyListToString)){
-                $filteredList[] = $objectListToFilter[$i];
-            }
-        }
-        return $filteredList;
-    }
-
-    static public function stringStartsWith(String $needle, String $haystack){
-    return substr($haystack, 0, strlen($needle));
-    }  
-
-    static public function propertyListToString($object, array $propertyList = [], String $sep = " "){
+    public function propertyListToString($object, array $propertyList = [], String $sep = " "){
         try {
             $className = get_class($object);
             $classPropertyList = array_keys(get_class_vars($className));
@@ -55,9 +27,10 @@ class StringHelper{
             return $th;
         }
     }
+    
 
     // Searches all the words from $searchString in $randomString
-    static public function AllWordsExistIn(String $searchedString, String $randomString){
+    public function AllWordsExistIn(String $searchedString, String $randomString){
         $randomStringWordList = explode(" ", $randomString);
         $searchedWordList = explode(" ", $searchedString);
 
@@ -85,7 +58,7 @@ class StringHelper{
         return true;
     }
     
-    static public function wordsExistIn(String $searchedString, String $randomString){
+    public function wordsExistIn(String $searchedString, String $randomString){
         /**Checks if the words contained in the searchedString exist in the $randomString,
          *following special criterias */
         $searchedWordList = explode(" ", $searchedString);
@@ -101,14 +74,19 @@ class StringHelper{
 
 
     //listToFilter must be an array of strings
-    static public function filterStringList(String $searchedString, array $listToFilter){
-        $filteredList = []; 
-        for ($i=0; $i < sizeof($listToFilter); $i++) { 
-            if(StringHelper::AllWordsExistIn($searchedString, $listToFilter[$i])){
-                $filteredList[] = $listToFilter[$i];
-            }
-        }
-        return $filteredList;
-    }
+    // static public function filterStringList(String $searchedString, array $listToFilter){
+    //     $filteredList = []; 
+    //     for ($i=0; $i < sizeof($listToFilter); $i++) { 
+    //         if(StringHelper::AllWordsExistIn($searchedString, $listToFilter[$i])){
+    //             $filteredList[] = $listToFilter[$i];
+    //         }
+    //     }
+    //     return $filteredList;
+    // }
+
+    // public function stringStartsWith(String $needle, String $haystack){
+    //     return substr($haystack, 0, strlen($needle));
+    // }  
+
 }
 ?>

@@ -2,6 +2,7 @@
 require_once('Swapper.php');
 require_once('User.php');
 require_once('StringHelper.php');
+require_once('Sorter.php');
 
 
 function dd($data){
@@ -20,7 +21,7 @@ $d = new User("Yao" ,"Aaron");
 $h = new User("Coulibaly", "Cécile");
 
 $userList = [$a, $b, $c, $d, $e, $f, $g, $h];
-$x = new User();
+$x = new Sorter();
 
 
 $sortedUserList = $x->orderBy($userList, 'desc', [ "prenom", "nom"]);
@@ -42,6 +43,10 @@ echo "<br><br>";
 // dd($userList);
 echo "<br><br>";
 echo "<br><br>";
-dd($sortedUserList);
+// dd($sortedUserList);
 // dd($a);
+// dd($userList);
+$h = new Sorter();
+$filteredList = $h->filter($userList, "", 'desc', ['prenom', 'nom']);
+dd($filteredList);
 ?>
