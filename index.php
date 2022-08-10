@@ -25,18 +25,16 @@ $x = new User();
 
 $sortedUserList = $x->orderBy($userList, [ "prenom", "nom"], 'asc');
 
-// dd($sortedUserList);
-// var_dump($sortedUserList);
-// dd(get_class_vars("User"));
-
 $stringPropertiesUserList = [];
-// dd(array_keys(get_class_vars('User')));
-// for ($i=0; $i < sizeof($userList); $i++) { 
-//     return $userList[$i]->propertyListToString($userList[$i], );
-// }
-// echo StringHelper::propertyListToString($a, );
-echo "<br><br>";
-// var_dump(get_object_vars($a));
-echo StringHelper::propertyListToString($c);
+$userPropertyList = [];
+for ($i=0; $i < sizeof($userList); $i++) { 
+  $stringPropertiesUserList[] = StringHelper::propertyListToString($userList[$i]); 
+}
 
+echo "<br><br>";
+dd($userList);
+
+$recherche = "t";
+echo "<br><br> recherche: \"$recherche\" <br><br>";
+dd(StringHelper::filterObjectList("$recherche", $sortedUserList));
 ?>
