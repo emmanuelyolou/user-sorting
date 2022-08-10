@@ -32,9 +32,17 @@ for ($i=0; $i < sizeof($userList); $i++) {
 }
 
 echo "<br><br>";
-dd($userList);
+// dd($userList);
 
-$recherche = "t";
+$recherche = "coulibaly j c";
 echo "<br><br> recherche: \"$recherche\" <br><br>";
 dd(StringHelper::filterObjectList("$recherche", $sortedUserList));
+echo "<br><br>";
+// echo preg_match("#\sabc$#", " fabcefg efg g abhc gabc ");
+
+$a = [1,2,3,4,5,6,7];
+// dd($a);
+unset($a[0]);
+unset($a[6]);
+// dd($a);
 ?>
