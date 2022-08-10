@@ -1,4 +1,5 @@
 <?php 
+require_once('User.php');
 class User{
     public $nom;
     public $prenom;
@@ -8,19 +9,6 @@ class User{
         $this->prenom = $prenom;
     }
     
-    public function propertyListToString($user, array $propertyList){
-        try {
-            $toString = '';
-            for ($i = 0; $i < $sizeof($propertyList); $i++){
-                $property = $propertyList[$i];
-                $toString += $user->$property;
-            }
-            return $toString;
-        } catch (\Throwable $th) {
-            return $th;
-        }
-    }
-
     public function orderBy(array $userList, array $propertyList, String $order){
         $allowedProperties = [ "nom", "prenom"];
         for ($i=0; $i < sizeof($propertyList); $i++) { 
