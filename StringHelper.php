@@ -4,7 +4,7 @@ class StringHelper{
     return substr($haystack, 0, strlen($needle));
   }  
 
-  static public function propertyListToString($object, array $propertyList = []){
+  static public function propertyListToString($object, array $propertyList = [], String $sep = " "){
     try {
         $className = get_class($object);
         $classPropertyList = array_keys(get_class_vars($className));
@@ -24,7 +24,7 @@ class StringHelper{
         $toString = '';
         for ($i = 0; $i < sizeof($propertyList); $i++){
             $property = $propertyList[$i];
-            $toString = "{$object->$property}";
+            $toString = "{$toString}{$sep}{$object->$property}";
         }
         return $toString;
     } catch (\Throwable $th) {
