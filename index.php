@@ -23,7 +23,7 @@ $userList = [$a, $b, $c, $d, $e, $f, $g, $h];
 $x = new User();
 
 
-$sortedUserList = $x->orderBy($userList, [ "prenom", "nom"], 'asc');
+$sortedUserList = $x->orderBy($userList, [ "prenom", "nom"], 'desc');
 
 $stringPropertiesUserList = [];
 $userPropertyList = [];
@@ -34,15 +34,14 @@ for ($i=0; $i < sizeof($userList); $i++) {
 echo "<br><br>";
 // dd($userList);
 
-$recherche = "coulibaly j c";
-echo "<br><br> recherche: \"$recherche\" <br><br>";
-dd(StringHelper::filterObjectList("$recherche", $sortedUserList));
-echo "<br><br>";
-// echo preg_match("#\sabc$#", " fabcefg efg g abhc gabc ");
+// $recherche = "coulibaly j c";
+// echo "<br><br> recherche: \"$recherche\" <br><br>";
+// dd(StringHelper::filterObjectList("$recherche", $sortedUserList));
+// echo "<br><br>";
 
-$a = [1,2,3,4,5,6,7];
-// dd($a);
-unset($a[0]);
-unset($a[6]);
+// dd($userList);
+echo "<br><br>";
+echo "<br><br>";
+dd($sortedUserList);
 // dd($a);
 ?>
