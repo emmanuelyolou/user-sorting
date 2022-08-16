@@ -1,7 +1,5 @@
 <?php
-require_once('Swapper.php');
 require_once('User.php');
-require_once('StringHelper.php');
 require_once('Sorter.php');
 
 
