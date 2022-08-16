@@ -44,5 +44,5 @@ $h = new Sorter();
 $filteredList = $h->filter($userList, "", 'desc', ['prenom', 'nom']);
 // dd($filteredList);
 
-var_dump($h->formatDate("10-02-0002"));
+// var_dump($h->formatDate("10-02-0002"));
 ?>

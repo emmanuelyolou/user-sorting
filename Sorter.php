@@ -5,7 +5,18 @@
  * Permits sorting a list of objetcs by their properties
  */
 class Sorter {
-    
+    /**
+     * filter
+     *Takes an array of objects, a string, an order direction ( 'asc' | 'desc') 
+     *a string to match and an array of properties. It returns an array of objects
+     *sorted in the specified order, by the specified properties and which properties 
+     *match the given string
+     *  @param array $listToProcess
+     * @param string $searchedString
+     * @param string $orderDirection
+     * @param array $propertyListToOrder
+     * @return array
+     */
     public function filter(
         array $listToProcess, 
         String $searchedString = '', 
