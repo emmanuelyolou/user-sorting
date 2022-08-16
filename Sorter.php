@@ -2,7 +2,7 @@
 
 /**
  * Sorter 
- * Permits sorting a list of objetcs based on their properties
+ * Permits sorting a list of objetcs by their properties
  */
 class Sorter {
     
@@ -172,5 +172,24 @@ class Sorter {
         $temp = clone $object1;
         $object1 =  clone $object2;
         $object2 = clone $temp;
+    }
+
+    /**
+     * isDate
+     * Checks if a given string is a valid date and respects the specified format
+     * @param string $date
+     * @param string $format
+     * @return bool
+     */       
+    function isDate($date, $format = 'd-m-Y')
+    {
+        $d = DateTime::createFromFormat($format, $date);
+        return $d && $d->format($format) == $date;
+    }
+           
+    function formatDate($date, $format = 'd-m-Y')
+    {
+        $d = DateTime::createFromFormat($format, $date);
+        return $d->format('Y-m-d');
     }
 }
