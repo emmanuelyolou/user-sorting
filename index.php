@@ -28,10 +28,6 @@ $sortedUserList = $x->orderBy($userList, 'desc', [ "prenom", "nom"]);
 
 $stringPropertiesUserList = [];
 $userPropertyList = [];
-for ($i=0; $i < sizeof($userList); $i++) { 
-  $stringPropertiesUserList[] = StringHelper::propertyListToString($userList[$i]); 
-}
-
 echo "<br><br>";
 // dd($userList);
 
