@@ -59,7 +59,13 @@ class Sorter {
                 //We check if the properties are in descending order and store the result in a bool variable
                 while(!$isComparisonFinished && $k < sizeof($propertyList)){
                     $property = $propertyList[$k];
-                    $arePropsInAscOrder = strcasecmp($userList[$i]->$property, $userList[$j]->$property) < 0;
+
+                    if($this->isDate($userList[$i]->$property)){
+                        $arePropsInAscOrder = $this->formatDate($userList[$i]->$property) < $this->formatDate($userList[$j]->$property);
+                    }
+                    else{
+                        $arePropsInAscOrder = strcasecmp($userList[$i]->$property, $userList[$j]->$property) < 0;
+                    }
                     $arePropsEqual = strcasecmp($userList[$i]->$property, $userList[$j]->$property) == 0;
 
                     if($arePropsEqual) {
