@@ -43,39 +43,34 @@ class Sorter {
 
     public function orderBy(array $userList, String $order = 'asc', array $propertyList = []){
         $order = strtolower($order);
-        
-        if(sizeof($userList) == 0){
-            return;
+
+        // We only keep objects that possess all the listed properties
+        $returnedUserList = [];
+        for ($i=0; $i < sizeof($userList); $i++) { 
+            if(sizeof( array_diff( $propertyList, array_keys(get_object_vars($userList[$i])))) == 0) {
+                $returnedUserList[] = $userList[$i];
+            }
         }
 
-        for ($i=0; $i < sizeof($userList) - 1; $i++) { 
-            //The object must possess all the properties listed in propertyList otherwise he's ejected
-            if(sizeof( array_diff( $propertyList, get_object_vars($userList[$i]))) != 0) {
-                unset($userList[$i]);
-                continue;
-            }
+        for ($i=0; $i < sizeof($returnedUserList) - 1; $i++) { 
 
             //$IsInOrder permits to optimize the bubble sort algorithm
             $isInOrder = true;
 
-            for ($j = $i + 1; $j < sizeof($userList); $j++ ) { 
-                if(sizeof( array_diff( $propertyList, get_object_vars($userList[$j]))) != 0) {
-                    unset($userList[$j]);
-                    continue;
-                }
+            for ($j = $i + 1; $j < sizeof($returnedUserList); $j++ ) { 
                 $isComparisonFinished = false;
                 $k = 0;
                 //We check if the properties are in descending order and store the result in a bool variable
                 while(!$isComparisonFinished && $k < sizeof($propertyList)){
                     $property = $propertyList[$k];
 
-                    if($this->isDate($userList[$i]->$property)){
-                        $arePropsInAscOrder = $this->formatDate($userList[$i]->$property) < $this->formatDate($userList[$j]->$property);
+                    if($this->isDate($returnedUserList[$i]->$property)){
+                        $arePropsInAscOrder = $this->formatDate($returnedUserList[$i]->$property) < $this->formatDate($returnedUserList[$j]->$property);
                     }
                     else{
-                        $arePropsInAscOrder = strcasecmp($userList[$i]->$property, $userList[$j]->$property) < 0;
+                        $arePropsInAscOrder = strcasecmp($returnedUserList[$i]->$property, $returnedUserList[$j]->$property) < 0;
                     }
-                    $arePropsEqual = strcasecmp($userList[$i]->$property, $userList[$j]->$property) == 0;
+                    $arePropsEqual = strcasecmp($returnedUserList[$i]->$property, $returnedUserList[$j]->$property) == 0;
 
                     if($arePropsEqual) {
                         $k++;
@@ -83,16 +78,16 @@ class Sorter {
                     else{
                         $isComparisonFinished = true;
                         if($order == "desc" && $arePropsInAscOrder) {
-                            $this->swap($userList[$i], $userList[$j]);
+                            $this->swap($returnedUserList[$i], $returnedUserList[$j]);
                             $isInOrder = false;
                         }
                         elseif($order == "asc" && !$arePropsInAscOrder){
-                            $this->swap($userList[$i], $userList[$j]);
+                            $this->swap($returnedUserList[$i], $returnedUserList[$j]);
                             $isInOrder = false;
                         }
                         elseif(!in_array($order, ["asc", "desc"]) && !$arePropsInAscOrder){
                             //If the specified order is neither 'asc' nor 'desc', act like it's 'asc' by default.
-                            $this->swap($userList[$i], $userList[$j]);
+                            $this->swap($returnedUserList[$i], $returnedUserList[$j]);
                             $isInOrder = false;
                         }
                     }
@@ -102,7 +97,7 @@ class Sorter {
                 break;
             }
         }
-        return $userList;
+        return $returnedUserList;
     }
 
 
@@ -110,8 +105,7 @@ class Sorter {
     
     public function propertyListToString($object, array $propertyList = [], String $sep = " "){
         try {
-            $className = get_class($object);
-            $classPropertyList = array_keys(get_class_vars($className));
+            $classPropertyList = array_keys(get_object_vars($object));
             
             for ($i=0; $i < sizeof($propertyList); $i++) {
                 //First, we check if the properties in $propertyList exist in the class
