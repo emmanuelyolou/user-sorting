@@ -45,4 +45,9 @@ $filteredList = $h->filter($userList, "", 'desc', ['prenom', 'nom']);
 // dd($filteredList);
 
 // var_dump($h->formatDate("10-02-0002"));
+
+var_dump(sizeof(array_diff(
+  [1, 2, 3, 8, 0],
+  [2, 3, 4, 5, 6, 7, 1, 8]
+)));
 ?>

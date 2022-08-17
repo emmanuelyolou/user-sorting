@@ -42,29 +42,27 @@ class Sorter {
     }
 
     public function orderBy(array $userList, String $order = 'asc', array $propertyList = []){
+        $order = strtolower($order);
+        
         if(sizeof($userList) == 0){
             return;
         }
-        $className = get_class($userList[0]);
-        $classPropertyList = array_keys(get_class_vars($className));
-        
-        //By default, if no property is mentionned, we consider all the properties
-        if(sizeof($propertyList) == 0){
-            $propertyList = $classPropertyList;
-        }
-        else{
-            for ($i=0; $i < sizeof($propertyList); $i++) {
-                if( !in_array( $propertyList[$i], $classPropertyList ) ){
-                    throw new Exception("Property $propertyList[$i] does not exist." );
-                }
-            }
-        }
-        
+
         for ($i=0; $i < sizeof($userList) - 1; $i++) { 
+            //The object must possess all the properties listed in propertyList otherwise he's ejected
+            if(sizeof( array_diff( $propertyList, get_object_vars($userList[$i]))) != 0) {
+                unset($userList[$i]);
+                continue;
+            }
+
             //$IsInOrder permits to optimize the bubble sort algorithm
             $isInOrder = true;
 
             for ($j = $i + 1; $j < sizeof($userList); $j++ ) { 
+                if(sizeof( array_diff( $propertyList, get_object_vars($userList[$j]))) != 0) {
+                    unset($userList[$j]);
+                    continue;
+                }
                 $isComparisonFinished = false;
                 $k = 0;
                 //We check if the properties are in descending order and store the result in a bool variable
