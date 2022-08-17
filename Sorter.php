@@ -55,7 +55,7 @@ class Sorter {
         for ($i=0; $i < sizeof($returnedUserList) - 1; $i++) { 
 
             //$IsInOrder permits to optimize the bubble sort algorithm
-            $isInOrder = true;
+            // $isInOrder = true;
 
             for ($j = $i + 1; $j < sizeof($returnedUserList); $j++ ) { 
                 $isComparisonFinished = false;
@@ -66,6 +66,9 @@ class Sorter {
 
                     if($this->isDate($returnedUserList[$i]->$property)){
                         $arePropsInAscOrder = $this->formatDate($returnedUserList[$i]->$property) < $this->formatDate($returnedUserList[$j]->$property);
+                    }
+                    elseif($this->isDateTime($returnedUserList[$i]->$property)){
+                        $arePropsInAscOrder = $this->dateTimeToDate($returnedUserList[$i]->$property) < $this->dateTimeToDate($returnedUserList[$j]->$property);
                     }
                     else{
                         $arePropsInAscOrder = strcasecmp($returnedUserList[$i]->$property, $returnedUserList[$j]->$property) < 0;
@@ -79,23 +82,20 @@ class Sorter {
                         $isComparisonFinished = true;
                         if($order == "desc" && $arePropsInAscOrder) {
                             $this->swap($returnedUserList[$i], $returnedUserList[$j]);
-                            $isInOrder = false;
+                            // $isInOrder = false;
                         }
                         elseif($order == "asc" && !$arePropsInAscOrder){
                             $this->swap($returnedUserList[$i], $returnedUserList[$j]);
-                            $isInOrder = false;
-                        }
-                        elseif(!in_array($order, ["asc", "desc"]) && !$arePropsInAscOrder){
-                            //If the specified order is neither 'asc' nor 'desc', act like it's 'asc' by default.
-                            $this->swap($returnedUserList[$i], $returnedUserList[$j]);
-                            $isInOrder = false;
+                            // $isInOrder = false;
                         }
                     }
                 }
             }
-            if($isInOrder){
-                break;
-            }
+            // if($isInOrder){
+            //     echo "<br>i = $i et j = $j <br>";
+            //     echo sizeof($returnedUserList);
+            //     break;
+            // }
         }
         return $returnedUserList;
     }
