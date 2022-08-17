@@ -194,10 +194,20 @@ class Sorter {
     {
         $d = DateTime::createFromFormat($format, $date);
         return $d && $d->format($format) == $date;
+    }   
+
+    function isDateTime($dateTime, $format = 'd-m-Y H:i:s')
+    {
+        $d = DateTime::createFromFormat($format, $dateTime);
+        return $d && $d->format($format) == $dateTime;
     }
            
     function formatDate($date, $format = 'd-m-Y')
     {
+        $d = DateTime::createFromFormat($format, $date);
+        return $d->format('Y-m-d');
+    }
+    function dateTimeToDate($date, $format = 'd-m-Y H:i:s'){
         $d = DateTime::createFromFormat($format, $date);
         return $d->format('Y-m-d');
     }

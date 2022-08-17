@@ -91,7 +91,8 @@ $a = array (
 );
 // var_dump($a);
 // dd($h->filter($a, "", "", ["nomdsghdsgjds"]));
-dd($h->orderBy($a, "desc", ["prenom_compte", "nom_compte", "phone1_compte"]));
+dd($h->orderBy($a, "asc", ["dateIn_compte", "nom_compte", "phone1_compte"]));
+echo "<br><br>". $h->dateTimeToDate("30-08-2022 16:59:52");
 // dd($h->propertyListToString($a[0]));
 // var_dump(get_object_vars($a[0]));
 // dd(array_keys(get_object_vars($a[0])));
