@@ -209,6 +209,6 @@ class Sorter {
     }
     function dateTimeToDate($date, $format = 'd-m-Y H:i:s'){
         $d = DateTime::createFromFormat($format, $date);
-        return $d->format('Y-m-d');
+        return $d->format('Y-m-d H:i:s');
     }
 }

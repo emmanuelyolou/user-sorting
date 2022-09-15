@@ -61,7 +61,7 @@ $a = array (
      'phone1_compte' => '0709432329',
      'numeroPasseport_compte' => '29038383',
      'password_compte' => 'Xcanada24',
-     'dateIn_compte' => '19-06-2022 10:50:19',
+     "dateIn_compte" => "15-09-2022 08:13:09",
      'id_compte__compteAdmin' => NULL,
   ),
   1 => 
@@ -70,15 +70,14 @@ $a = array (
      'nom_compte' => 'Aka',
      'prenom_compte' => 'Michele',
      'phone1_compte' => '0709685967',
-     'dateIn_compte' => '09-08-2022 17:28:43',
-  ),
+     "dateIn_compte" => "15-09-2022 08:22:13"  ),
   2 => 
   (object) array(
      'id_compte' => 'UULIWH0QS',
      'nom_compte' => 'Sinde',
      'prenom_compte' => 'Ve Adolphe',
      'phone1_compte' => '0708090910',
-     'dateIn_compte' => '09-08-2022 17:00:24',
+     "dateIn_compte" => "15-09-2022 08:27:23"
   ),
   3 => 
   (object) array(
@@ -86,13 +85,31 @@ $a = array (
      'nom_compte' => 'Djella',
      'prenom_compte' => 'Konan Emmanuel',
      'phone1_compte' => '0777113543',
-     'dateIn_compte' => '09-08-2022 16:59:52',
+     'dateIn_compte' => '15-09-2022 08:27:58',
+  ),
+  4 => 
+  (object) array(
+     'id_compte' => 'UH3UC7MWD',
+     'nom_compte' => 'Djella',
+     'prenom_compte' => 'Konan Emmanuel',
+     'phone1_compte' => '0777113543',
+     'dateIn_compte' => '14-09-2022 13:19:10',
+  ),
+  5 => 
+  (object) array(
+     'id_compte' => 'UH3UC7MWD',
+     'nom_compte' => 'Djella',
+     'prenom_compte' => 'Konan Emmanuel',
+     'phone1_compte' => '0777113543',
+     'dateIn_compte' => '14-09-2022 15:08:14',
   ),
 );
 // var_dump($a);
 // dd($h->filter($a, "", "", ["nomdsghdsgjds"]));
-dd($h->orderBy($a, "desc", ["nom_compte",]));
-echo "<br><br>". $h->dateTimeToDate("30-08-2022 16:59:52");
+dd($h->filter($a, '', "DESC", ["dateIn_compte",]));
+// echo "<br><br>". $h->dateTimeToDate("30-08-2022 16:59:52");
+"";
+"";
 // dd($h->propertyListToString($a[0]));
 // var_dump(get_object_vars($a[0]));
 // dd(array_keys(get_object_vars($a[0])));
